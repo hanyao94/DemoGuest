@@ -21,7 +21,7 @@ body{
     width: 214px;
     height: 42px;
     background: url(../../images/logo1.png) no-repeat;
-    margin: 40px 0 0 50px;
+    margin: 50px 0 0 50px;
 }
 
 #header h1 a{
@@ -32,7 +32,7 @@ body{
 }
 #header ul{
     text-align: right;
-    padding: 30px 50px 0 0 ;
+    padding: 20px 50px 0 0 ;
 }
 
 #header ul li{

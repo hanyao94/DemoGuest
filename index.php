@@ -1,26 +1,29 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: Seven
+ * Date: 2017/2/6
+ * Time: 16:01
+ */
+//防止恶意调用,用来授权调用includes里面的文件
+define('IN_TG',true);
+require dirname(__FILE__).'/includes/common.inc.php'; //转换成硬路径，速度快
+?>
 <!DOCTYPE html
     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
     <meta http-equiv="CONTENT-TYPE" content="text/html"; charset="utf-8"/>
-    <title>Title</title>
+    <title>多用户留言系统--首页</title>
     <link rel="stylesheet" type="text/css" href="styles/1/basic.css"/>
     <link rel="stylesheet" type="text/css" href="styles/1/index.css"/>
 </head>
+
 <body>
-    <div id = "header">
-        <h1><a href="index.php">瓢城Web俱乐部多用户留言系统</a></h1>
-        <ul>
-            <li>首页</li>
-            <li>注册</li>
-            <li>登录</li>
-            <li>个人中心</li>
-            <li>风格</li>
-            <li>管理</li>
-            <li>退出</li>
-        </ul>
-    </div>
+    <?php
+        require ROOT_PATH.'includes/header.inc.php'; //包含
+    ?>
 
     <div id="list">
         <h2>帖子列表</h2>
@@ -33,10 +36,8 @@
     <div id="pics">
         <h2>最新图片</h2>
     </div>
-
-    <div id="footer">
-        <p>版权所有 翻版必究</p>
-        <p>本程序由<span>瓢城web俱乐部</span>提供 源代码可以任意修改和发布</p>
-    </div>
+    <?php
+        require ROOT_PATH.'includes/footer.inc.php';
+    ?>
 </body>
 </html>
