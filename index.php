@@ -7,6 +7,7 @@
  */
 //防止恶意调用,用来授权调用includes里面的文件
 define('IN_TG',true);
+// 公共文件
 require dirname(__FILE__).'/includes/common.inc.php'; //转换成硬路径，速度快
 ?>
 <!DOCTYPE html

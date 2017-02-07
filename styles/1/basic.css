@@ -39,6 +39,15 @@ body{
     display: inline; //一行
 }
 
+#header ul li a{
+    text-decoration: none;
+    color: #333;
+}
+#header ul li a:hover{
+    color: #f00;
+    text-decoration: underline;
+}
+
 ul{
     list-style-type: none;//去掉小圆点
 }
