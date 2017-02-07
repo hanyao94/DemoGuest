@@ -9,6 +9,7 @@
 define('IN_TG',true);
 // 公共文件
 require dirname(__FILE__).'/includes/common.inc.php'; //转换成硬路径，速度快
+define('SCRIPT','register');
 ?>
 <!DOCTYPE html
     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -17,8 +18,10 @@ require dirname(__FILE__).'/includes/common.inc.php'; //转换成硬路径，速
 <head>
     <meta http-equiv="CONTENT-TYPE" content="text/html"; charset="utf-8"/>
     <title>多用户留言系统--注册</title>
-    <link rel="stylesheet" type="text/css" href="styles/1/basic.css"/>
-    <link rel="stylesheet" type="text/css" href="styles/1/register.css"/>
+    <?php
+        require ROOT_PATH.'includes/title.inc.php'; //包含
+    ?>
+    <script type="text/javascript"  src="js/face.js"></script>
 </head>
 <body>
     <?php
@@ -35,7 +38,7 @@ require dirname(__FILE__).'/includes/common.inc.php'; //转换成硬路径，速
                 <dd>密码提示：<input type="text" name="passt" class="text"/>（*必填，至少两位）</dd>
                 <dd>密码回答：<input type="text" name="passd" class="text"/>（*必填至少两位）</dd>
                 <dd>性    别：<input type="radio" name="sex" value="男" checked="checked" />男 <input type="radio" name="sex" value="女"  />女</dd>
-                <dd class="face"><img src="face/m01.gif" alt="头像选择" onclick="javascript:window.open('face.php','face','width=400,height=400,top=0,left=0')"/></dd>
+                <dd class="face"><img src="face/m01.gif" alt="头像选择" id = "faceimg"/></dd>
                 <dd>电子邮件：<input type="text" name="email" class="text"/></dd>
                 <dd>&ensp;Q&ensp;&ensp;&ensp;Q&ensp;：<input type="text" name="qq" class="text"/></dd>
                 <dd>主页地址：<input type="text" name="url" class="text" value="http://"/></dd>
