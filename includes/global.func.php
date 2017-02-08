@@ -15,6 +15,10 @@ function _runtime(){
     return $_mtime[1] + $_mtime[0];
 }
 
+/**
+ * 验证码错误弹窗
+ * @param $_info
+ */
 function _alert_back($_info){
     echo "<script type='text/javascript'>alert('".$_info."');history.back();</script>";
     exit();

@@ -17,10 +17,12 @@ if(@$_GET['action']=='register'){
     if (!($_POST['yzm'] == $_SESSION['code'])){
         _alert_back('验证码不正确');
     }
+    //引入验证文件
+    include ROOT_PATH.'includes/register.func.php';
+
     //创建一个空数组，用来存放提交过来的合法数据
     $_clean = array();
-    $_clean['username'] = $_POST['username'];
-    $_clean['password'] = $_POST['password'];
+    $_clean['username'] = _check_username($_POST['username'],2,20);
     print_r($_clean);
 
 }
