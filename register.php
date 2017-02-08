@@ -5,11 +5,25 @@
  * Date: 2017/2/7
  * Time: 14:11
  */
+session_start();
 //防止恶意调用,用来授权调用includes里面的文件
 define('IN_TG',true);
 // 公共文件
 require dirname(__FILE__).'/includes/common.inc.php'; //转换成硬路径，速度快
 define('SCRIPT','register');
+
+if(@$_GET['action']=='register'){
+    //为了防止恶意注册，跨站攻击
+    if (!($_POST['yzm'] == $_SESSION['code'])){
+        _alert_back('验证码不正确');
+    }
+    //创建一个空数组，用来存放提交过来的合法数据
+    $_clean = array();
+    $_clean['username'] = $_POST['username'];
+    $_clean['password'] = $_POST['password'];
+    print_r($_clean);
+
+}
 ?>
 <!DOCTYPE html
     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -29,7 +43,7 @@ define('SCRIPT','register');
     ?>
     <div id="register">
         <h2>会员注册</h2>
-        <form action="post.php" name="register" method="post">
+        <form action="register.php?action=register" name="register" method="post">
             <dl>
                 <dt>请认真填写下内容</dt>
                 <dd>用  户  名&ensp;：<input type="text" name="username" class="text"/>（*必填，至少两位）</dd>

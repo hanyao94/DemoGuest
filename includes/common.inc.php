@@ -9,6 +9,10 @@
 if (!defined('IN_TG')){ //防止恶意调用
     exit('Access Denfied');
 }
+
+//设置字符集编码
+header('Content-type:text/html;charset=utf-8');
+
 define('ROOT_PATH',substr(dirname(__FILE__),0,-8));
 
 if (PHP_VERSION < '4.1.0'){
