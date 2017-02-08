@@ -9,6 +9,7 @@
 define('IN_TG',true);
 // 公共文件
 require dirname(__FILE__).'/includes/common.inc.php'; //转换成硬路径，速度快
+//定义css,证明是本页
 define('SCRIPT','face');
 ?>
 <!DOCTYPE html

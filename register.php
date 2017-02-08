@@ -42,7 +42,7 @@ define('SCRIPT','register');
                 <dd>电子邮件：<input type="text" name="email" class="text"/></dd>
                 <dd>&ensp;Q&ensp;&ensp;&ensp;Q&ensp;：<input type="text" name="qq" class="text"/></dd>
                 <dd>主页地址：<input type="text" name="url" class="text" value="http://"/></dd>
-                <dd>验 证 码&ensp;：<input type="text" name="yzm" class="text yzm"/> <img src="code.php" /></dd>
+                <dd>验 证 码&ensp;：<input type="text" name="yzm" class="text yzm"/> <img src="code.php" id="code" /></dd>
                 <dd><input type = "submit" class="submit" value="注册"/></dd>
 
             </dl>
