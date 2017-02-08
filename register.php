@@ -29,7 +29,7 @@ define('SCRIPT','register');
     ?>
     <div id="register">
         <h2>会员注册</h2>
-        <form action="post.php" method="post">
+        <form action="post.php" name="register" method="post">
             <dl>
                 <dt>请认真填写下内容</dt>
                 <dd>用  户  名&ensp;：<input type="text" name="username" class="text"/>（*必填，至少两位）</dd>
@@ -38,7 +38,7 @@ define('SCRIPT','register');
                 <dd>密码提示：<input type="text" name="passt" class="text"/>（*必填，至少两位）</dd>
                 <dd>密码回答：<input type="text" name="passd" class="text"/>（*必填至少两位）</dd>
                 <dd>性    别：<input type="radio" name="sex" value="男" checked="checked" />男 <input type="radio" name="sex" value="女"  />女</dd>
-                <dd class="face"><img src="face/m01.gif" alt="头像选择" id = "faceimg"/></dd>
+                <dd class="face"><input type="hidden" name="face" value="face/m01.gif"/><img src="face/m01.gif" alt="头像选择" id = "faceimg"/></dd>
                 <dd>电子邮件：<input type="text" name="email" class="text"/></dd>
                 <dd>&ensp;Q&ensp;&ensp;&ensp;Q&ensp;：<input type="text" name="qq" class="text"/></dd>
                 <dd>主页地址：<input type="text" name="url" class="text" value="http://"/></dd>
