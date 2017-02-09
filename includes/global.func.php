@@ -25,6 +25,39 @@ function _alert_back($_info){
 }
 
 /**
+ * 生成唯一标识符
+ * @return string
+ */
+function _sha1_string(){
+    return sha1(uniqid(rand(),true));
+}
+
+/**
+ * 转义函数，如果自动转义有开则不在手动转义
+ * @param $_string
+ * @return string
+ */
+function _mysql_string($_string){
+    //如果get_magic_quotes_gpc()这个函数是开启状态，则不需要转义
+    if (!GPC){
+       return mysql_escape_string($_string);
+    }
+    return $_string;
+}
+
+
+/**
+ * 验证码比对
+ * @param $_first_code
+ * @param $_end_code
+ */
+function _check_code($_first_code,$_end_code){
+    if ($_first_code != $_end_code){
+        _alert_back('验证码不正确');
+    }
+}
+
+/**
  * 生成验证码函数
  * @access public 表示函数对外公开
  * @param int $_width  验证码图片长度 默认75

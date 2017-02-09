@@ -14,6 +14,23 @@ if (!function_exists('_alert_back')){
     exit('_alert_back()函数不存在，请检查');
 }
 
+if (!function_exists('_mysql_string')){
+    exit('_mysql_string()函数不存在，请检查');
+}
+
+/**
+ * 唯一标识符验证
+ * @param $_first_uniqid
+ * @param $_end_uniqid
+ * @return string
+ */
+function _check_uniqid($_first_uniqid,$_end_uniqid){
+    if ((strlen($_first_uniqid) != 40)||($_first_uniqid != $_end_uniqid)){
+        _alert_back("唯一标识符异常");
+    }
+    return _mysql_string($_first_uniqid);
+}
+
 /**
  * 过滤用户名
  * @param $_string 受污染的用户名
@@ -27,7 +44,7 @@ function _check_username($_string,$_min_num,$_max_num){
 
     //长度小于两位或者大于20位
     if (mb_strlen($_string,'utf-8')<$_min_num||mb_strlen($_string,'utf-8')>$_max_num){
-        _alert_back('长度不得小于'.$_min_num.'或者大于'.$_max_num.'位');
+        _alert_back('用户名长度不得小于'.$_min_num.'或者大于'.$_max_num.'位');
     }
 
     //限制敏感字符
@@ -52,7 +69,7 @@ function _check_username($_string,$_min_num,$_max_num){
     }
     //将用户名转义输出
     //return mysql_real_escape_string($_string);//有问题
-    return mysql_escape_string($_string);
+    return _mysql_string($_string);
 }
 
 /**
@@ -73,7 +90,7 @@ function _check_password($_first_pass,$_end_pass,$_min_num){
         _alert_back("两次输入的密码不一致");
     }
 
-    return sha1($_first_pass);
+    return _mysql_string(sha1($_first_pass));
 }
 
 /**
@@ -85,13 +102,14 @@ function _check_password($_first_pass,$_end_pass,$_min_num){
  * @return string 返回密码提示
  */
 function _check_qusetion($_string,$_min_num,$_max_num){
+    $_string = trim($_string);
     //长度小于4位或者大于20位
     if (mb_strlen($_string,'utf-8')<$_min_num||mb_strlen($_string,'utf-8')>$_max_num){
         _alert_back('长度不得小于'.$_min_num.'或者大于'.$_max_num.'位');
     }
 
     //返回密码提示
-    return mysql_escape_string($_string);
+    return _mysql_string($_string);
 }
 
 /**
@@ -112,7 +130,7 @@ function _check_answer($_ques,$_answ,$_min_num,$_max_num){
         _alert_back('密码提示与密码回答不能一致');
     }
 
-    return sha1($_answ);
+    return _mysql_string(sha1($_answ));
 }
 
 /**
@@ -132,7 +150,7 @@ function _check_email($_string){
     if (!preg_match('/^[\w\-\.]+@[\w\-\.]+(\.\w+)+$/',$_string)){
         _alert_back("邮件格式不正确");
     }
-    return $_string;
+    return _mysql_string($_string);
 }
 
 /**
@@ -149,7 +167,7 @@ function _check_QQ($_string){
             _alert_back('QQ号码不正确');
         }
     }
-    return $_string;
+    return _mysql_string($_string);
 }
 
 /**
@@ -167,5 +185,5 @@ function _check_url($_string){
         }
 
     }
-    return $_string;
+    return _mysql_string($_string);
 }

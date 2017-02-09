@@ -14,14 +14,19 @@ define('SCRIPT','register');
 
 if(@$_GET['action']=='register'){
     //为了防止恶意注册，跨站攻击
-    if (!($_POST['yzm'] == $_SESSION['code'])){
-        _alert_back('验证码不正确');
-    }
+    _check_code($_POST['code'],$_SESSION['code']);
+
+
     //引入验证文件
     include ROOT_PATH.'includes/register.func.php';
 
     //创建一个空数组，用来存放提交过来的合法数据
     $_clean = array();
+    //通过唯一标识符来防止恶意注册，伪装表单跨站攻击等
+    //这个存放如数据库的唯一标识符还有第二个用处，就是登录cookies验证
+    $_clean['uniqid'] = _check_uniqid($_POST['uniqid'],$_SESSION['uniqid']);
+    //active也是一个唯一标识符，用来刚注册的用户进行激活处理，方可登录
+    $_clean['active'] = _sha1_string();
     $_clean['username'] = _check_username($_POST['username'],2,20);
     $_clean['password'] = _check_password($_POST['password'],$_POST['notpassword'],6);
     $_clean['qusetion'] = _check_qusetion($_POST['question'],2,20);
@@ -33,6 +38,8 @@ if(@$_GET['action']=='register'){
     $_clean['url'] = _check_url($_POST['url']);
     print_r($_clean);
 
+}else{
+    $_SESSION['uniqid'] = $_uniqid = _sha1_string();
 }
 ?>
 <!DOCTYPE html
@@ -54,6 +61,7 @@ if(@$_GET['action']=='register'){
     <div id="register">
         <h2>会员注册</h2>
         <form action="register.php?action=register" name="register" method="post">
+            <input  type="hidden" name="uniqid" value="<?php echo @$_uniqid ?>"/>
             <dl>
                 <dt>请认真填写下内容</dt>
                 <dd>用  户  名&ensp;：<input type="text" name="username" class="text"/>（*必填，至少两位）</dd>
@@ -66,7 +74,7 @@ if(@$_GET['action']=='register'){
                 <dd>电子邮件：<input type="text" name="email" class="text"/></dd>
                 <dd>&ensp;Q&ensp;&ensp;&ensp;Q&ensp;：<input type="text" name="qq" class="text"/></dd>
                 <dd>主页地址：<input type="text" name="url" class="text" value="http://"/></dd>
-                <dd>验 证 码&ensp;：<input type="text" name="yzm" class="text yzm"/> <img src="code.php" id="code" /></dd>
+                <dd>验 证 码&ensp;：<input type="text" name="code" class="text yzm"/> <img src="code.php" id="code" /></dd>
                 <dd><input type = "submit" class="submit" value="注册"/></dd>
 
             </dl>
