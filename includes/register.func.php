@@ -54,3 +54,55 @@ function _check_username($_string,$_min_num,$_max_num){
     //return mysql_real_escape_string($_string);//有问题
     return mysql_escape_string($_string);
 }
+
+/**
+ * 验证密码
+ * @access public
+ * @param $_first_pass
+ * @param $_end_pass
+ * @param $_min_num
+ * @return  string $_first_pass 返回一个加密后的密码
+ */
+function _check_password($_first_pass,$_end_pass,$_min_num){
+    //判断密码
+    if (strlen($_first_pass)<$_min_num){
+        _alert_back("密码不得小于".$_min_num."位");
+    }
+
+    if ($_first_pass != $_end_pass){
+        _alert_back("两次输入的密码不一致");
+    }
+
+    return sha1($_first_pass);
+}
+
+/**
+ * 密码问题
+ * @access public
+ * @param $_string
+ * @param $_min_num
+ * @param $_max_num
+ * @return string 返回密码提示
+ */
+function _check_qusetion($_string,$_min_num,$_max_num){
+    //长度小于4位或者大于20位
+    if (mb_strlen($_string,'utf-8')<$_min_num||mb_strlen($_string,'utf-8')>$_max_num){
+        _alert_back('长度不得小于'.$_min_num.'或者大于'.$_max_num.'位');
+    }
+
+    //返回密码提示
+    return mysql_escape_string($_string);
+}
+
+function _check_answer($_ques,$_answ,$_min_num,$_max_num){
+    //长度小于4位或者大于20位
+    if (mb_strlen($_answ,'utf-8')<$_min_num||mb_strlen($_answ,'utf-8')>$_max_num){
+        _alert_back('长度不得小于'.$_min_num.'或者大于'.$_max_num.'位');
+    }
+    //密码提示和回答不能一致
+    if ($_ques == $_answ){
+        _alert_back('密码提示与密码回答不能一致');
+    }
+
+    return sha1($_answ);
+}
