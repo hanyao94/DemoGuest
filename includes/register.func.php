@@ -94,6 +94,14 @@ function _check_qusetion($_string,$_min_num,$_max_num){
     return mysql_escape_string($_string);
 }
 
+/**
+ * 密码答案
+ * @param $_ques
+ * @param $_answ
+ * @param $_min_num
+ * @param $_max_num
+ * @return string
+ */
 function _check_answer($_ques,$_answ,$_min_num,$_max_num){
     //长度小于4位或者大于20位
     if (mb_strlen($_answ,'utf-8')<$_min_num||mb_strlen($_answ,'utf-8')>$_max_num){
@@ -105,4 +113,59 @@ function _check_answer($_ques,$_answ,$_min_num,$_max_num){
     }
 
     return sha1($_answ);
+}
+
+/**
+ * 检查邮箱是否合法
+ * @param $_string
+ * @return 邮箱地址
+ */
+function _check_email($_string){
+
+    //参考bnbbs@163.com
+    //[a-zA-Z0-9] => \w
+    //[\w\-\.] 16.3
+    //\.[\w+].com.com.com.net.cn
+    if (empty($_string)){
+        return null;
+    }
+    if (!preg_match('/^[\w\-\.]+@[\w\-\.]+(\.\w+)+$/',$_string)){
+        _alert_back("邮件格式不正确");
+    }
+    return $_string;
+}
+
+/**
+ * QQ验证
+ * @param $_string
+ * @return QQ号码
+ */
+function _check_QQ($_string){
+    if (empty($_string)){
+        return null;
+    }else{
+        //1345564313
+        if (!preg_match('/^[1-9]{1}[0-9]{4,9}$/',$_string)){
+            _alert_back('QQ号码不正确');
+        }
+    }
+    return $_string;
+}
+
+/**
+ * 网址验证
+ * @param $_string
+ * @return 合法的网址
+ */
+function _check_url($_string){
+    if (empty($_string)||($_string == 'http://')){
+        return null;
+    }else{
+        //http://www.yc60.com
+        if (!preg_match('/^https?:\/\/(\w+\.)?[\w\_\.]+(\.\w+)+$/',$_string)){
+            _alert_back('网址不正确');
+        }
+
+    }
+    return $_string;
 }
