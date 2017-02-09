@@ -10,7 +10,10 @@ session_start();
 define('IN_TG',true);
 // 公共文件
 require dirname(__FILE__).'/includes/common.inc.php'; //转换成硬路径，速度快
+//css样式引入，证明是本页
 define('SCRIPT','register');
+
+
 
 if(@$_GET['action']=='register'){
     //为了防止恶意注册，跨站攻击
@@ -29,14 +32,56 @@ if(@$_GET['action']=='register'){
     $_clean['active'] = _sha1_string();
     $_clean['username'] = _check_username($_POST['username'],2,20);
     $_clean['password'] = _check_password($_POST['password'],$_POST['notpassword'],6);
-    $_clean['qusetion'] = _check_qusetion($_POST['question'],2,20);
+    $_clean['question'] = _check_qusetion($_POST['question'],2,20);
     $_clean['answer'] = _check_answer($_POST['question'],$_POST['answer'],2,20);
     $_clean['sex'] = _check_sex($_POST['sex']);
     $_clean['face'] = _check_face($_POST['face']);
     $_clean['email'] = _check_email($_POST['email'],6,40);
     $_clean['QQ'] = _check_QQ($_POST['qq']);
     $_clean['url'] = _check_url($_POST['url'],40);
-    print_r($_clean);
+    //新增之前看用户名是否重复
+    $sql = "SELECT tg_username FROM tg_user WHERE tg_username ='{$_clean['username']}'";
+    if (mysql_fetch_array(mysql_query($sql),MYSQL_ASSOC)){
+        _alert_back('对不起，此用户已被注册');
+    }
+
+    //新增用户 在双引号里，直接放变量是可以的，但是如果是数组，必须 加上花括号，比如｛$clean['username']｝
+    $sql = "INSERT INTO tg_user(tg_uniqid,
+                                tg_active,
+                                tg_username,
+                                tg_password,
+                                tg_question,
+                                tg_answer,
+                                tg_email,
+                                tg_sex,
+                                tg_face,
+                                tg_qq,
+                                tg_url,
+                                tg_reg_time,
+                                tg_last_time,
+                                tg_last_ip
+                                )
+                       VALUES(
+                              '{$_clean['uniqid']}',
+                              '{$_clean['active']}',
+                              '{$_clean['username']}',
+                              '{$_clean['password']}',
+                              '{$_clean['question']}',
+                              '{$_clean['answer']}',
+                              '{$_clean['email']}',
+                              '{$_clean['sex']}',
+                              '{$_clean['face']}',
+                              '{$_clean['QQ']}',
+                              '{$_clean['url']}','".
+                               date('y-m-d h:i:s')."','".
+                               date('y-m-d h:i:s')."',
+                              '{$_SERVER["REMOTE_ADDR"]}'
+                       )";
+    mysql_query($sql) or die($sql."  ".mysql_error(   ));
+    //关闭数据库
+    mysql_close();
+    //跳转函数
+    _location('恭喜你注册成功','index.php');
 
 }else{
     $_SESSION['uniqid'] = $_uniqid = _sha1_string();

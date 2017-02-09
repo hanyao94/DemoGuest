@@ -9,6 +9,7 @@
 if (!defined('IN_TG')){ //防止恶意调用
     exit('Access Denfied');
 }
+mysql_close();
 ?>
 <div id="footer">
     <p>本程序执行耗时为<?php echo round((_runtime() - START_TIME),5) ?>秒</p>

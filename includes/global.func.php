@@ -25,6 +25,15 @@ function _alert_back($_info){
 }
 
 /**
+ * 注册成功，跳转
+ * @param $_info
+ * @param $_url
+ */
+function _location($_info,$_url){
+    echo "<script type='text/javascript'>alert('$_info.');location.href='$_url';</script>";
+    exit();
+}
+/**
  * 生成唯一标识符
  * @return string
  */

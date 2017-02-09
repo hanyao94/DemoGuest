@@ -26,4 +26,19 @@ require ROOT_PATH.'includes/global.func.php';
 //执行耗时
 define('START_TIME',_runtime());
 //$GLOBALS['start_time'] = _runtime();
+
+//数据库连接
+define('DB_HOST','localhost');
+define('DB_USER','root');
+define('DB_PWD','root');
+define('DB_NAME','testguest');
+
+//创建数据库连接
+$_conn = mysql_connect(DB_HOST,DB_USER,DB_PWD)or die('数据库连接失败');
+
+//选择一款数据库
+mysql_select_db(DB_NAME) or die('指定数据库不存在');
+
+//选择字符集
+mysql_query('SET NAMES UTF8') or die('字符集错误');
 ?>

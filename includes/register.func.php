@@ -105,7 +105,7 @@ function _check_qusetion($_string,$_min_num,$_max_num){
     $_string = trim($_string);
     //长度小于4位或者大于20位
     if (mb_strlen($_string,'utf-8')<$_min_num||mb_strlen($_string,'utf-8')>$_max_num){
-        _alert_back('长度不得小于'.$_min_num.'或者大于'.$_max_num.'位');
+        _alert_back('密码问题长度不得小于'.$_min_num.'或者大于'.$_max_num.'位');
     }
 
     //返回密码提示
@@ -124,7 +124,7 @@ function _check_answer($_ques,$_answ,$_min_num,$_max_num){
     $_answ = trim($_answ);
     //长度小于4位或者大于20位
     if (mb_strlen($_answ,'utf-8')<$_min_num||mb_strlen($_answ,'utf-8')>$_max_num){
-        _alert_back('长度不得小于'.$_min_num.'或者大于'.$_max_num.'位');
+        _alert_back('密码答案长度不得小于'.$_min_num.'或者大于'.$_max_num.'位');
     }
     //密码提示和回答不能一致
     if ($_ques == $_answ){
