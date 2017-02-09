@@ -31,11 +31,11 @@ if(@$_GET['action']=='register'){
     $_clean['password'] = _check_password($_POST['password'],$_POST['notpassword'],6);
     $_clean['qusetion'] = _check_qusetion($_POST['question'],2,20);
     $_clean['answer'] = _check_answer($_POST['question'],$_POST['answer'],2,20);
-    $_clean['sex'] = $_POST['sex'];
-    $_clean['face'] = $_POST['face'];
-    $_clean['email'] = _check_email($_POST['email']);
+    $_clean['sex'] = _check_sex($_POST['sex']);
+    $_clean['face'] = _check_face($_POST['face']);
+    $_clean['email'] = _check_email($_POST['email'],6,40);
     $_clean['QQ'] = _check_QQ($_POST['qq']);
-    $_clean['url'] = _check_url($_POST['url']);
+    $_clean['url'] = _check_url($_POST['url'],40);
     print_r($_clean);
 
 }else{
