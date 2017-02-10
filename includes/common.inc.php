@@ -23,6 +23,7 @@ if (PHP_VERSION < '4.1.0'){
     exit("Version is to Low！");
 }
 require ROOT_PATH.'includes/global.func.php';
+require ROOT_PATH.'includes/mysql.func.php';
 //执行耗时
 define('START_TIME',_runtime());
 //$GLOBALS['start_time'] = _runtime();
@@ -33,12 +34,7 @@ define('DB_USER','root');
 define('DB_PWD','root');
 define('DB_NAME','testguest');
 
-//创建数据库连接
-$_conn = mysql_connect(DB_HOST,DB_USER,DB_PWD)or die('数据库连接失败');
-
-//选择一款数据库
-mysql_select_db(DB_NAME) or die('指定数据库不存在');
-
-//选择字符集
-mysql_query('SET NAMES UTF8') or die('字符集错误');
-?>
+//初始化数据库
+_connect(); //连接mysql数据库
+_select_db(); //选择指定的数据库
+_set_name();  //设置字符集

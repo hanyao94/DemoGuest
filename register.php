@@ -40,10 +40,11 @@ if(@$_GET['action']=='register'){
     $_clean['QQ'] = _check_QQ($_POST['qq']);
     $_clean['url'] = _check_url($_POST['url'],40);
     //新增之前看用户名是否重复
-    $sql = "SELECT tg_username FROM tg_user WHERE tg_username ='{$_clean['username']}'";
-    if (mysql_fetch_array(mysql_query($sql),MYSQL_ASSOC)){
-        _alert_back('对不起，此用户已被注册');
-    }
+    $sql = "SELECT tg_username FROM tg_user WHERE tg_username ='{$_clean['username']}'LIMIT 1";
+    _is_repeat($sql,'对不起，此用户已被注册');
+//    if (_fetch_array($sql)){
+//        _alert_back('对不起，此用户已被注册');
+//    }
 
     //新增用户 在双引号里，直接放变量是可以的，但是如果是数组，必须 加上花括号，比如｛$clean['username']｝
     $sql = "INSERT INTO tg_user(tg_uniqid,
@@ -77,9 +78,9 @@ if(@$_GET['action']=='register'){
                                date('y-m-d h:i:s')."',
                               '{$_SERVER["REMOTE_ADDR"]}'
                        )";
-    mysql_query($sql) or die($sql."  ".mysql_error(   ));
+    _query($sql);
     //关闭数据库
-    mysql_close();
+    _close();
     //跳转函数
     _location('恭喜你注册成功','index.php');
 
