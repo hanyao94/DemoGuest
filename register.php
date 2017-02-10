@@ -117,7 +117,7 @@ if(@$_GET['action']=='register'){
                 <dd>密码回答：<input type="text" name="answer" class="text"/>（*必填至少两位）</dd>
                 <dd>性    别：<input type="radio" name="sex" value="男" checked="checked" />男 <input type="radio" name="sex" value="女"  />女</dd>
                 <dd class="face"><input type="hidden" name="face" value="face/m01.gif"/><img src="face/m01.gif" alt="头像选择" id = "faceimg"/></dd>
-                <dd>电子邮件：<input type="text" name="email" class="text"/></dd>
+                <dd>电子邮件：<input type="text" name="email" class="text"/>(*必填，用于激活账户)</dd>
                 <dd>&ensp;Q&ensp;&ensp;&ensp;Q&ensp;：<input type="text" name="qq" class="text"/></dd>
                 <dd>主页地址：<input type="text" name="url" class="text" value="http://"/></dd>
                 <dd>验 证 码&ensp;：<input type="text" name="code" class="text yzm"/> <img src="code.php" id="code" /></dd>

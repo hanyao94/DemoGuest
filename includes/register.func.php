@@ -164,16 +164,13 @@ function _check_email($_string,$_min_num,$_max_num){
     //[a-zA-Z0-9] => \w
     //[\w\-\.] 16.3
     //\.[\w+].com.com.com.net.cn
-    if (empty($_string)){
-        return null;
-    }else {
-        if (!preg_match('/^[\w\-\.]+@[\w\-\.]+(\.\w+)+$/', $_string)) {
-            _alert_back("邮件格式不正确");
-            if (strlen($_string) < $_min_num || strlen($_string) > $_max_num) {
-                _alert_back('邮件长度不合法');
-            }
+    if (!preg_match('/^[\w\-\.]+@[\w\-\.]+(\.\w+)+$/', $_string)) {
+        _alert_back("邮件格式不正确");
+        if (strlen($_string) < $_min_num || strlen($_string) > $_max_num) {
+            _alert_back('邮件长度不合法');
         }
     }
+
     return _mysql_string($_string);
 }
 
