@@ -65,6 +65,14 @@ function _fetch_array($_sql){
 }
 
 /**
+ * 影响到的行记录数
+ * @return int
+ */
+function _affected_row(){
+    return mysql_affected_rows();
+}
+
+/**
  * 判断用户名是否重复
  * @param $_sql
  * @param $_info

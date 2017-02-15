@@ -79,10 +79,15 @@ if(@$_GET['action']=='register'){
                               '{$_SERVER["REMOTE_ADDR"]}'
                        )";
     _query($sql);
-    //关闭数据库
-    _close();
-    //跳转函数
-    _location('恭喜你注册成功','index.php');
+    if (_affected_row() == 1){
+        //关闭数据库
+       // _close();
+        //跳转函数
+        _location('恭喜你注册成功'._affected_row(),'active.php?active='.$_clean['active']);
+    }else{
+        _close();
+        _location('很遗憾，注册失败','register.php');
+    }
 
 }else{
     $_SESSION['uniqid'] = $_uniqid = _sha1_string();
