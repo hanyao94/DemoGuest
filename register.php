@@ -103,7 +103,8 @@ if(@$_GET['action']=='register'){
     <?php
         require ROOT_PATH.'includes/title.inc.php'; //包含
     ?>
-    <script type="text/javascript"  src="js/face.js"></script>
+    <script type="text/javascript"  src="js/code.js"></script>
+    <script type="text/javascript"  src="js/register.js"></script>
 </head>
 <body>
     <?php
