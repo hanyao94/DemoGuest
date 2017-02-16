@@ -130,8 +130,27 @@ function _code($_width = 75,$_height = 25, $_rng_code = 4,$_black_flag = false){
 }
 
 /**
+ * 判断登录状态
+ */
+function _login_state(){
+    if (isset($_COOKIE['username'])){
+        _alert_back("登录状态无法进行本操作");
+    }
+}
+
+/**
  * 清除session
  */
 function _session_destroy(){
     session_destroy();
+}
+
+/**
+ * 删除cookie
+ */
+function _unsetcookies(){
+    setcookie('username','',time()-1);
+    setcookie('uniqid','',time()-1);
+    _session_destroy();
+    _location(null,'index.php');
 }

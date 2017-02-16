@@ -13,6 +13,9 @@ require dirname(__FILE__).'/includes/common.inc.php'; //转换成硬路径，速
 //css样式引入，证明是本页
 define('SCRIPT','login');
 
+//判断此时登录的状态
+_login_state();
+
 //开始处理登录状态
 if (@$_GET['action'] == 'login'){
     //为了防止恶意注册，跨站攻击
@@ -30,6 +33,7 @@ if (@$_GET['action'] == 'login'){
     if (!!$_row = _fetch_array("SELECT tg_username,tg_uniqid FROM tg_user WHERE tg_username='{$_clean['username']}' AND tg_password='{$_clean['password']}' AND tg_active=' ' LIMIT 1")){
         _close();
         _session_destroy();
+        _setcookie($_row['tg_username'],$_row['tg_uniqid'],$_clean['time']);
         _location(null,'index.php');
     }else{
         _close();

@@ -74,3 +74,34 @@ function _check_time($_string){
     }
     return _mysql_string($_string);
 }
+
+/**
+ * 生成登录cookie
+ * @param $_username 用户名
+ * @param $_uniqid 唯一标识
+ * @param $_time 过期时间
+ */
+function _setcookie($_username,$_uniqid,$_time){
+    setcookie('username',$_username);
+    setcookie('uniqid',$_uniqid);
+
+    switch ($_time){
+        case '0'://浏览器进程
+            setcookie('username',$_username);
+            setcookie('uniqid',$_uniqid);
+            break;
+        case '1'://一天
+            setcookie('username',$_username,time()+86400);//24*60*60
+            setcookie('uniqid',$_uniqid,time()+86400);
+            break;
+        case '2'://一周
+            setcookie('username',$_username,time()+604800);//24*60*60*7
+            setcookie('uniqid',$_uniqid,time()+604800);
+            break;
+        case '3'://一月
+            setcookie('username',$_username,time()+2592000);//24*60*60*30
+            setcookie('uniqid',$_uniqid,time()+2592000);
+            break;
+
+    }
+}

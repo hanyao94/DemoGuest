@@ -13,7 +13,8 @@ require dirname(__FILE__).'/includes/common.inc.php'; //转换成硬路径，速
 //css样式引入，证明是本页
 define('SCRIPT','register');
 
-
+//判断此时登录的状态
+_login_state();
 
 if(@$_GET['action']=='register'){
     //为了防止恶意注册，跨站攻击
