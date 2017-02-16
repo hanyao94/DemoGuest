@@ -30,8 +30,13 @@ function _alert_back($_info){
  * @param $_url
  */
 function _location($_info,$_url){
-    echo "<script type='text/javascript'>alert('$_info.');location.href='$_url';</script>";
-    exit();
+    if (!empty($_info)){
+
+        echo "<script type='text/javascript'>alert('$_info.');location.href='$_url';</script>";
+        exit();
+    }else{
+        header('Location:'.$_url);
+    }
 }
 /**
  * 生成唯一标识符
@@ -122,4 +127,11 @@ function _code($_width = 75,$_height = 25, $_rng_code = 4,$_black_flag = false){
 
 //销毁
     imagedestroy($_img);
+}
+
+/**
+ * 清除session
+ */
+function _session_destroy(){
+    session_destroy();
 }

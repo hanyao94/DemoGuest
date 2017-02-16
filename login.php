@@ -15,7 +15,27 @@ define('SCRIPT','login');
 
 //开始处理登录状态
 if (@$_GET['action'] == 'login'){
-    exit('123');
+    //为了防止恶意注册，跨站攻击
+    _check_code($_POST['code'],$_SESSION['code']);
+
+    //引入验证文件
+    include ROOT_PATH.'includes/login.func.php';
+    //接收数据
+    $_clean = array();
+    $_clean['username'] = _check_username($_POST['username'],2,20);
+    $_clean['password'] = _check_password($_POST['password'],6);
+    $_clean['time'] = _check_time($_POST['time']);
+
+    //到数据库去
+    if (!!$_row = _fetch_array("SELECT tg_username,tg_uniqid FROM tg_user WHERE tg_username='{$_clean['username']}' AND tg_password='{$_clean['password']}' AND tg_active=' ' LIMIT 1")){
+        _close();
+        _session_destroy();
+        _location(null,'index.php');
+    }else{
+        _close();
+        _session_destroy();
+        _location("该用户名密码错误或者未被激活",'login.php');
+    }
 }
 ?>
 <!DOCTYPE html

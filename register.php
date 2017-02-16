@@ -81,11 +81,13 @@ if(@$_GET['action']=='register'){
     _query($sql);
     if (_affected_row() == 1){
         //关闭数据库
-       // _close();
+        _close();
+        _session_destroy();
         //跳转函数
         _location('恭喜你注册成功'._affected_row(),'active.php?active='.$_clean['active']);
     }else{
         _close();
+        _session_destroy();
         _location('很遗憾，注册失败','register.php');
     }
 

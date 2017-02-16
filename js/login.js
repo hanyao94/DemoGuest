@@ -31,12 +31,7 @@ window.onload = function () {
             fm.password.focus();//光标
             return false;
         }
-        if(fm.password.value != fm.notpassword.value){
-            alert('密码和确认密码必须一致');
-            fm.notpassword.value = '';//清空
-            fm.notpassword.focus();//光标
-            return false;
-        }
+        
         //验证码
         if(fm.code.value.length != 4){
             alert('验证码不正确');
