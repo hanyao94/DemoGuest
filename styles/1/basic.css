@@ -60,6 +60,40 @@ h2{
     text-indent: 10px; /*文本缩进*/
 }
 
+#page_num{
+    height: 20px;;
+    clear: both;
+    padding: 10px 0;
+    position: relative;
+}
+
+#page_num ul {
+    position: absolute;
+    height: 30px;
+    right: 10px;
+}
+#page_num ul li{
+    float: left;
+    width: 26px;
+    height: 20px;
+}
+
+#page_num ul li a{
+    display: block;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    border: 1px solid #333;
+    text-align: center;
+    text-decoration: none;
+}
+
+#page_num ul li a:hover,#page_num ul li a.selected{
+    background: #666;
+    font-weight: bold;
+    color: #fff;
+}
+
 #footer{
     width: auto;
     height: 60px;
