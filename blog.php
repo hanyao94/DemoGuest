@@ -11,6 +11,11 @@ define('IN_TG',true);
 require dirname(__FILE__).'/includes/common.inc.php'; //转换成硬路径，速度快
 //css样式引入，证明是本页
 define('SCRIPT','blog');
+//从数据库提取数据
+//我们必须是每次从新读取结果集，而不是每次从新去执行sql
+$_result = mysql_query("SELECT tg_sex,tg_username,tg_face FROM tg_user ORDER BY tg_reg_time DESC");
+
+
 ?>
 <!DOCTYPE html
     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -31,10 +36,10 @@ define('SCRIPT','blog');
     ?>
         <div id="blog">
             <h2>博友列表</h2>
-            <?php for ($i=10;$i<30;$i++){ ?>
+            <?php while (!!$_rows = _fetch_array_list($_result)){ ?>
             <dl>
-                <dd class="user">炎日</dd>
-                <dt><img src="face/m<?php echo $i?>.gif" alt="炎日"/></dt>
+                <dd class="user"><?php echo $_rows['tg_username']?>(<?php echo $_rows['tg_sex']?>)</dd>
+                <dt><img src="<?php echo $_rows['tg_face']?>" alt="炎日"/></dt>
                 <dd class="message">发消息</dd>
                 <dd class="friend">加为好友</dd>
                 <dd class="guest">给他留言</dd>
