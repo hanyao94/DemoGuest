@@ -94,6 +94,27 @@ h2{
     color: #fff;
 }
 
+#page_text{
+    height: 20px;;
+    clear: both;
+    padding: 10px 0;
+
+}
+
+#page_text ul{
+    text-align: center;
+}
+
+#page_text ul li{
+    display: inline;
+}
+
+#page_text ul li a{
+    text-decoration: none;
+}
+
+#page_num
+
 #footer{
     width: auto;
     height: 60px;

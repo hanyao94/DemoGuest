@@ -69,6 +69,32 @@ $_result = _query("SELECT tg_sex,tg_username,tg_face FROM tg_user ORDER BY tg_re
                     }?>
                 </ul>
             </div>
+
+            <div id="page_text">
+                <ul>
+                    <li><?php echo $_page?>/<?php echo $_pageabsolute ?>页|</li>
+                    <li>共有<strong><?php echo $_num?></strong>个会员</li>
+                    <?php
+                        if ($_page == 1){
+                            echo '<li>首页|</li>';
+                            echo '<li>上一页|</li>';
+                        }else{
+                            echo '<li><a href="'.SCRIPT.'.php">首页|</a></li>';
+                            echo '<li><a href="'.SCRIPT.'.php?page='.($_page-1).'">上一页|</a></li>';
+
+                        }
+                        if ($_page == $_pageabsolute){
+                            echo '<li>下一页|</li>';
+                            echo '<li>尾页|</li>';
+                        }else{
+                            echo '<li><a href="'.SCRIPT.'.php?page='.($_page+1).'">下一页|</a></li>';
+                            echo '<li><a href="'.SCRIPT.'.php?page='.$_pageabsolute.'">尾页|</a></li>';
+                        }
+
+
+                    ?>
+                </ul>
+            </div>
         </div>
 
     <?php
