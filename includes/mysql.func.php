@@ -74,6 +74,16 @@ function _fetch_array_list($_result){
 }
 
 /**
+ *  返回结果集总条数
+ * @param $_result
+ * @return int
+ */
+function _num_rows($_result){
+    return mysql_num_rows($_result);
+}
+
+
+/**
  * 影响到的行记录数
  * @return int
  */
