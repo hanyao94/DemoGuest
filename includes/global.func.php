@@ -138,6 +138,72 @@ function _login_state(){
     }
 }
 
+/**分页数据函数
+ * @param $_sql 执行的sql语句
+ * @param $_size 每页条数
+ * @return 分页的数据 全局
+ */
+function _page($_sql,$_size){
+    //将数据用全局变量取出，以便页面可以调用
+    global $_page,$_pagesize,$_num,$_pageabsolute,$_pagenum;
+    $_page = @$_GET['page'];//第几页
+    $_page = (empty($_page)||($_page<0)||!is_numeric($_page))?1:intval($_page);
+    $_pagesize = $_size; //每页条数
+    //首先要得到所有数据的总和
+    $_num = _num_rows(_query($_sql)); //总条数
+    $_pageabsolute = $_num==0?1:ceil($_num / $_pagesize);//向上取整，总页数
+    if ($_page>$_pageabsolute) $_page=$_pageabsolute; //页码比总页数大
+    $_pagenum = ($_page-1) * $_pagesize; //page偏移量，从第几条开始 容错处理，不能为空，负数，非数字，小数
+
+}
+
+
+/**
+ * 分页函数
+ * @param $_type 类型 1数字分页，2文本分页
+ * @return 分页
+ */
+function _paging($_type){
+    global $_pageabsolute,$_page,$_num;
+    if ($_type == 1){
+        echo '<div id="page_num">';
+        echo '<ul>';
+               for($i=0;$i<$_pageabsolute;$i++){
+                if ($_page == ($i+1)){
+                    echo '<li><a href="blog.php?page='.($i+1).'" class = "selected">'.($i+1).'</a></li>';
+                }else{
+                    echo '<li><a href="blog.php?page='.($i+1).'">'.($i+1).'</a></li>';
+                }
+            }
+        echo '</ul>';
+        echo '</div>';
+    }elseif ($_type == 2){
+           echo '<div id="page_text">';
+           echo  '<ul>';
+                    echo '<li> '.$_page.' / '.$_pageabsolute.' 页|</li>';
+                    echo '<li>共有<strong>'.$_num.'</strong>个会员|</li>';
+
+                    if ($_page == 1){
+                        echo '<li>首页|</li>';
+                        echo '<li>上一页|</li>';
+                    }else{
+                        echo '<li><a href="'.SCRIPT.'.php">首页|</a></li>';
+                        echo '<li><a href="'.SCRIPT.'.php?page='.($_page-1).'">上一页|</a></li>';
+
+                    }
+                    if ($_page == $_pageabsolute){
+                        echo '<li>下一页|</li>';
+                        echo '<li>尾页</li>';
+                    }else{
+                        echo '<li><a href="'.SCRIPT.'.php?page='.($_page+1).'">下一页|</a></li>';
+                        echo '<li><a href="'.SCRIPT.'.php?page='.$_pageabsolute.'">尾页</a></li>';
+                    }
+
+                echo '</ul>';
+            echo '</div>';
+    }
+}
+
 /**
  * 清除session
  */
@@ -154,3 +220,4 @@ function _unsetcookies(){
     _session_destroy();
     _location(null,'index.php');
 }
+

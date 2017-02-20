@@ -13,15 +13,7 @@ require dirname(__FILE__).'/includes/common.inc.php'; //转换成硬路径，速
 define('SCRIPT','blog');
 
 //分页模块
-$_page = @$_GET['page'];//第几页
-$_page = (empty($_page)||($_page<0)||!is_numeric($_page))?1:intval($_page);
-$_pagesize = 10; //每页条数
-//首先要得到所有数据的总和
-$_num = _num_rows(_query("SELECT tg_id FROM tg_user")); //总条数
-$_pageabsolute = $_num==0?1:ceil($_num / $_pagesize);//向上取整，总页数
-if ($_page>$_pageabsolute) $_page=$_pageabsolute; //页码比总页数大
-$_pagenum = ($_page-1) * $_pagesize; //page偏移量，从第几条开始 容错处理，不能为空，负数，非数字，小数
-
+_page('SELECT tg_id FROM tg_user',10); //sql取得数据，每页条数
 
 //从数据库提取数据
 //我们必须是每次从新读取结果集，而不是每次从新去执行sql
@@ -57,44 +49,14 @@ $_result = _query("SELECT tg_sex,tg_username,tg_face FROM tg_user ORDER BY tg_re
                 <dd class="guest">给他留言</dd>
                 <dd class="flower">送花</dd>
             </dl>
-            <?php } ?>
-            <div id="page_num">
-                <ul>
-                    <?php for($i=0;$i<$_pageabsolute;$i++){
-                        if ($_page == ($i+1)){
-                            echo '<li><a href="blog.php?page='.($i+1).'" class = "selected">'.($i+1).'</a></li>';
-                        }else{
-                            echo '<li><a href="blog.php?page='.($i+1).'">'.($i+1).'</a></li>';
-                        }
-                    }?>
-                </ul>
-            </div>
+            <?php }
 
-            <div id="page_text">
-                <ul>
-                    <li><?php echo $_page?>/<?php echo $_pageabsolute ?>页|</li>
-                    <li>共有<strong><?php echo $_num?></strong>个会员</li>
-                    <?php
-                        if ($_page == 1){
-                            echo '<li>首页|</li>';
-                            echo '<li>上一页|</li>';
-                        }else{
-                            echo '<li><a href="'.SCRIPT.'.php">首页|</a></li>';
-                            echo '<li><a href="'.SCRIPT.'.php?page='.($_page-1).'">上一页|</a></li>';
+            _paging(1);//输出分页，1数字分页，2文本分页
 
-                        }
-                        if ($_page == $_pageabsolute){
-                            echo '<li>下一页|</li>';
-                            echo '<li>尾页|</li>';
-                        }else{
-                            echo '<li><a href="'.SCRIPT.'.php?page='.($_page+1).'">下一页|</a></li>';
-                            echo '<li><a href="'.SCRIPT.'.php?page='.$_pageabsolute.'">尾页|</a></li>';
-                        }
+            ?>
+           
 
-
-                    ?>
-                </ul>
-            </div>
+          
         </div>
 
     <?php
