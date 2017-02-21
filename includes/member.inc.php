@@ -10,7 +10,7 @@
     <h2>中心导航</h2>
     <dl>
         <dt>帐号管理</dt>
-        <dd><a href="###">个人信息</a></dd>
+        <dd><a href="member.php">个人信息</a></dd>
         <dd><a href="###">修改资料</a></dd>
     </dl>
     <dl>

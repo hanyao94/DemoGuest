@@ -92,6 +92,14 @@ function _affected_row(){
 }
 
 /**
+ * 销毁结果集
+ * @param $_result
+ */
+function _free($_result){
+    mysql_free_result($_result);
+}
+
+/**
  * 判断用户名是否重复
  * @param $_sql
  * @param $_info

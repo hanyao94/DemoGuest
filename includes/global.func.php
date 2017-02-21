@@ -138,6 +138,24 @@ function _login_state(){
     }
 }
 
+/**
+ * 过滤html字符
+ * 如果是数组就按照数组的方式过滤；如果是字符串就按照字符串的方式过滤
+ * @param $_string 字符串或者数组
+ * @return string
+ *
+ */
+function _html($_string){
+    if (is_array($_string)){
+        foreach ($_string as $_key =>$_value){
+            $_string[$_key] = _html($_value); //这里采用了递归
+        }
+    }else{
+        $_string = htmlspecialchars($_string);
+    }
+    return $_string;
+}
+
 /**分页数据函数
  * @param $_sql 执行的sql语句
  * @param $_size 每页条数

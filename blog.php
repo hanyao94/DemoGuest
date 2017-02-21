@@ -40,17 +40,24 @@ $_result = _query("SELECT tg_sex,tg_username,tg_face FROM tg_user ORDER BY tg_re
     ?>
         <div id="blog">
             <h2>博友列表</h2>
-            <?php while (!!$_rows = _fetch_array_list($_result)){ ?>
+            <?php while (!!$_rows = _fetch_array_list($_result)){
+                $_html = array();
+                $_html['username'] = $_rows['tg_username'];
+                $_html['face'] = $_rows['tg_face'];
+                $_html['sex'] = $_rows['tg_sex'];
+                $_html = _html($_html);
+
+                ?>
             <dl>
-                <dd class="user"><?php echo $_rows['tg_username']?>(<?php echo $_rows['tg_sex']?>)</dd>
-                <dt><img src="<?php echo $_rows['tg_face']?>" alt="炎日"/></dt>
+                <dd class="user"><?php echo $_html['username']?>(<?php echo $_html['sex']?>)</dd>
+                <dt><img src="<?php echo  $_html['face']?>" alt="炎日"/></dt>
                 <dd class="message">发消息</dd>
                 <dd class="friend">加为好友</dd>
                 <dd class="guest">给他留言</dd>
                 <dd class="flower">送花</dd>
             </dl>
             <?php }
-
+            _free($_result);
             _paging(1);//输出分页，1数字分页，2文本分页
 
             ?>

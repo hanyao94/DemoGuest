@@ -34,7 +34,7 @@ if (@$_GET['action'] == 'login'){
         _close();
         _session_destroy();
         _setcookie($_row['tg_username'],$_row['tg_uniqid'],$_clean['time']);
-        _location(null,'index.php');
+        _location(null,'member.php');
     }else{
         _close();
         _session_destroy();

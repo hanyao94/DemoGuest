@@ -12,6 +12,37 @@ require dirname(__FILE__).'/includes/common.inc.php'; //转换成硬路径，速
 //css样式引入，证明是本页
 define('SCRIPT','member');
 
+if(isset($_COOKIE['username'])){
+    //获取数据
+    $_row = _fetch_array("SELECT tg_username,tg_sex,tg_face,tg_email,tg_url,tg_qq,tg_level,tg_reg_time FROM tg_user WHERE  tg_username ='{$_COOKIE['username']}'");
+    if ($_row){
+        $_html = array();
+        $_html['username'] = $_row['tg_username'];
+        $_html['sex'] = $_row['tg_sex'];
+        $_html['face'] = $_row['tg_face'];
+        $_html['email'] = $_row['tg_email'];
+        $_html['url'] = $_row['tg_url'];
+        $_html['qq'] = $_row['tg_qq'];
+        $_html['reg_time'] = $_row['tg_reg_time'];
+        $_html = _html($_html);
+        switch ($_row['tg_level']){
+            case 0:
+                $_html['level'] = '普通会员';
+                break;
+            case 1:
+                $_html['level'] = '管理员';
+                break;
+            default:
+                $_html['level'] = '出错';
+        }
+    }else{
+        _alert_back('此用户不存在');
+    }
+}else{
+    _alert_back("非法登录");
+}
+
+
 ?>
 <!DOCTYPE html
     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -33,14 +64,14 @@ define('SCRIPT','member');
         <div id="member_main">
             <h2>会员管理中心</h2>
             <dl>
-                <dd>用户名: 炎日</dd>
-                <dd>性别: 男</dd>
-                <dd>头像: face/m01.gif</dd>
-                <dd>电子邮件: yc60.com@gmail.com</dd>
-                <dd>主页: http:dddddd</dd>
-                <dd>QQ：sssssss</dd>
-                <dd>注册时间：2015-10-15</dd>
-                <dd>身份：管理员</dd>
+                <dd>用户名: <?php echo $_html['username']?></dd>
+                <dd>性别: <?php echo $_html['sex']?></dd>
+                <dd>头像: <?php echo $_html['face']?></dd>
+                <dd>电子邮件: <?php echo $_html['email']?></dd>
+                <dd>主页: <?php echo $_html['url']?></dd>
+                <dd>QQ：<?php echo $_html['qq']?></dd>
+                <dd>注册时间：<?php echo $_html['reg_time']?></dd>
+                <dd>身份：<?php echo $_html['level']?></dd>
             </dl>
         </div>
     </div>
