@@ -15,7 +15,55 @@ require dirname(__FILE__).'/includes/common.inc.php'; //转换成硬路径，速
 define('SCRIPT','member_modify');
 
 if(@$_GET['action'] == 'modify'){
-  echo '修改';
+    //为了防止恶意注册，跨站攻击
+    _check_code($_POST['code'],$_SESSION['code']);
+    //引入验证文件
+    include ROOT_PATH.'includes/register.func.php';
+
+    //创建一个空数组，用来存放提交过来的合法数据
+    $_clean = array();
+
+    $_clean['password'] = _check_password_modify($_POST['password'],6);
+    $_clean['sex'] = _check_sex($_POST['sex']);
+    $_clean['face'] = _check_face($_POST['face']);
+    $_clean['email'] = _check_email($_POST['email'],6,40);
+    $_clean['QQ'] = _check_QQ($_POST['qq']);
+    $_clean['url'] = _check_url($_POST['url'],40);
+    
+    if (empty($_clean['password'])){
+        _query("UPDATE tg_user SET 
+                                    tg_sex='{$_clean['sex']}',
+                                    tg_face='{$_clean['face']}',
+                                    tg_email='{$_clean['email']}',
+                                    tg_qq='{$_clean['QQ']}',
+                                    tg_url='{$_clean['url']}'
+                                WHERE
+                                    tg_username = '{$_COOKIE['username']}'
+                                    ");
+    }else{
+        _query("UPDATE tg_user SET 
+                                    tg_password='{$_clean['password']}',
+                                    tg_sex='{$_clean['sex']}',
+                                    tg_face='{$_clean['face']}',
+                                    tg_email='{$_clean['email']}',
+                                    tg_qq='{$_clean['QQ']}',
+                                    tg_url='{$_clean['url']}'
+                                WHERE
+                                    tg_username = '{$_COOKIE['username']}'
+                                    ");
+    }
+    //判断是否修改成功
+    if (_affected_row() == 1){
+        //关闭数据库
+        _close();
+        _session_destroy();
+        //跳转函数
+        _location('恭喜你修改成功','member.php');
+    }else{
+        _close();
+        _session_destroy();
+        _location('很遗憾，修改失败','member_modify.php');
+    }
 }
 
 if(isset($_COOKIE['username'])){
@@ -80,11 +128,12 @@ if(isset($_COOKIE['username'])){
             <form action="?action=modify" method="post">
             <dl>
                 <dd>用户名: <?php echo $_html['username']?></dd>
+                <dd>密码:  <input type="text" class="text" name="password" value=""/>(留白表示默认不修改)</dd>
                 <dd>性别: <?php echo $_html['sex_html']?></dd>
                 <dd>头像: <?php echo $_html['face_html']?></dd>
                 <dd>电子邮件: <input type="text" class="text" name="email" value="<?php echo $_html['email']?>"/></dd>
-                <dd>主页:  <input type="text" class="text" name="email" value="<?php echo $_html['url']?>"/></dd>
-                <dd>QQ：<input type="text" class="text" name="email" value="<?php echo $_html['qq']?>"/></dd>
+                <dd>主页:  <input type="text" class="text" name="url" value="<?php echo $_html['url']?>"/></dd>
+                <dd>QQ：<input type="text" class="text" name="qq" value="<?php echo $_html['qq']?>"/></dd>
                 <dd>验 证 码&ensp;：<input type="text" name="code" class="text yzm"/> <img src="code.php" id="code" /></dd>
                 <dd><input type="submit" class="submit" value="修改资料"/></dd>
             </dl>

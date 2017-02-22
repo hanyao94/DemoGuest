@@ -94,6 +94,26 @@ function _check_password($_first_pass,$_end_pass,$_min_num){
 }
 
 /**
+ * 修改资料验证密码
+ * @param $_string
+ * @param $_min_num
+ * @return mixed
+ */
+function _check_password_modify($_string,$_min_num){
+    //判断密码
+    if (!empty($_string)){
+
+        if (strlen($_string)<$_min_num){
+            _alert_back('密码不得小于'.$_min_num);
+        }
+    }else{
+        return null;
+    }
+    return sha1($_string);
+}
+
+
+/**
  * 密码问题
  * @access public
  * @param $_string
