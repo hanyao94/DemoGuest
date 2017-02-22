@@ -75,8 +75,8 @@ if(@$_GET['action']=='register'){
                               '{$_clean['face']}',
                               '{$_clean['QQ']}',
                               '{$_clean['url']}','".
-                               date('y-m-d h:i:s')."','".
-                               date('y-m-d h:i:s')."',
+                               date('y-m-d H:i:s')."','".
+                               date('y-m-d H:i:s')."',
                               '{$_SERVER["REMOTE_ADDR"]}'
                        )";
     _query($sql);

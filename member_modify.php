@@ -17,21 +17,25 @@ define('SCRIPT','member_modify');
 if(@$_GET['action'] == 'modify'){
     //为了防止恶意注册，跨站攻击
     _check_code($_POST['code'],$_SESSION['code']);
-    //引入验证文件
-    include ROOT_PATH.'includes/register.func.php';
 
-    //创建一个空数组，用来存放提交过来的合法数据
-    $_clean = array();
+   if(!!$_rows =_fetch_array("SELECT tg_uniqid FROM tg_user WHERE tg_username = '{$_COOKIE['username']}'LIMIT 1")) {
+       //为了防止cookies伪造，还要比对下唯一标识符uniqid()
+       _uniqid($_rows['tg_uniqid'], $_COOKIE['uniqid']);
+       //引入验证文件
+       include ROOT_PATH . 'includes/register.func.php';
 
-    $_clean['password'] = _check_password_modify($_POST['password'],6);
-    $_clean['sex'] = _check_sex($_POST['sex']);
-    $_clean['face'] = _check_face($_POST['face']);
-    $_clean['email'] = _check_email($_POST['email'],6,40);
-    $_clean['QQ'] = _check_QQ($_POST['qq']);
-    $_clean['url'] = _check_url($_POST['url'],40);
-    
-    if (empty($_clean['password'])){
-        _query("UPDATE tg_user SET 
+       //创建一个空数组，用来存放提交过来的合法数据
+       $_clean = array();
+
+       $_clean['password'] = _check_password_modify($_POST['password'], 6);
+       $_clean['sex'] = _check_sex($_POST['sex']);
+       $_clean['face'] = _check_face($_POST['face']);
+       $_clean['email'] = _check_email($_POST['email'], 6, 40);
+       $_clean['QQ'] = _check_QQ($_POST['qq']);
+       $_clean['url'] = _check_url($_POST['url'], 40);
+
+       if (empty($_clean['password'])) {
+           _query("UPDATE tg_user SET 
                                     tg_sex='{$_clean['sex']}',
                                     tg_face='{$_clean['face']}',
                                     tg_email='{$_clean['email']}',
@@ -40,8 +44,8 @@ if(@$_GET['action'] == 'modify'){
                                 WHERE
                                     tg_username = '{$_COOKIE['username']}'
                                     ");
-    }else{
-        _query("UPDATE tg_user SET 
+       } else {
+           _query("UPDATE tg_user SET 
                                     tg_password='{$_clean['password']}',
                                     tg_sex='{$_clean['sex']}',
                                     tg_face='{$_clean['face']}',
@@ -51,7 +55,8 @@ if(@$_GET['action'] == 'modify'){
                                 WHERE
                                     tg_username = '{$_COOKIE['username']}'
                                     ");
-    }
+       }
+   }
     //判断是否修改成功
     if (_affected_row() == 1){
         //关闭数据库
@@ -62,7 +67,7 @@ if(@$_GET['action'] == 'modify'){
     }else{
         _close();
         _session_destroy();
-        _location('很遗憾，修改失败','member_modify.php');
+        _location('很遗憾，没有任何数据被修改','member_modify.php');
     }
 }
 
@@ -82,7 +87,7 @@ if(isset($_COOKIE['username'])){
         //性别选择
         if ($_html['sex'] == '男'){
             $_html['sex_html'] = '<input type="radio" name="sex" value="男" checked="checked" />男 <input type="radio" name="sex" value="女" />女';
-        }elseif ($_html['sex'] == 'nv'){
+        }elseif ($_html['sex'] == '女'){
             $_html['sex_html'] = '<input type="radio" name="sex" value="男"  />男 <input type="radio" name="sex" value="女" checked="checked" />女';
         }
 

@@ -139,6 +139,17 @@ function _login_state(){
 }
 
 /**
+ * 判断唯一标识符是否异常
+ * @param $_mysql_uniqid
+ * @param $_cookie_uniqid
+ */
+function _uniqid($_mysql_uniqid,$_cookie_uniqid){
+    if ($_mysql_uniqid != $_cookie_uniqid ){
+        _alert_back('唯一标识符异常');
+    }
+}
+
+/**
  * 过滤html字符
  * 如果是数组就按照数组的方式过滤；如果是字符串就按照字符串的方式过滤
  * @param $_string 字符串或者数组
