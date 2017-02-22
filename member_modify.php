@@ -22,7 +22,7 @@ if(@$_GET['action'] == 'modify'){
        //为了防止cookies伪造，还要比对下唯一标识符uniqid()
        _uniqid($_rows['tg_uniqid'], $_COOKIE['uniqid']);
        //引入验证文件
-       include ROOT_PATH . 'includes/register.func.php';
+       include ROOT_PATH . 'includes/check.func.php';
 
        //创建一个空数组，用来存放提交过来的合法数据
        $_clean = array();

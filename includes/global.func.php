@@ -16,13 +16,24 @@ function _runtime(){
 }
 
 /**
- * 验证码错误弹窗
+ * 错误弹窗,返回上一页
  * @param $_info
  */
 function _alert_back($_info){
     echo "<script type='text/javascript'>alert('".$_info."');history.back();</script>";
     exit();
 }
+
+/**
+ * 弹窗并关闭
+ * @param $_info
+ */
+function _alert_close($_info){
+    echo "<script type='text/javascript'>alert('".$_info."');window.close();</script>";
+    exit();
+}
+
+
 
 /**
  * 注册成功，跳转
@@ -54,7 +65,13 @@ function _sha1_string(){
 function _mysql_string($_string){
     //如果get_magic_quotes_gpc()这个函数是开启状态，则不需要转义
     if (!GPC){
-       return mysql_escape_string($_string);
+        if (is_array($_string)){
+            foreach ($_string as $_key =>$_value){
+                $_string[$_key] = _mysql_string($_value); //这里采用了递归
+            }
+        }else{
+            $_string = mysql_escape_string($_string);
+        }
     }
     return $_string;
 }

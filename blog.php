@@ -13,11 +13,11 @@ require dirname(__FILE__).'/includes/common.inc.php'; //转换成硬路径，速
 define('SCRIPT','blog');
 
 //分页模块
-_page('SELECT tg_id FROM tg_user',10); //sql取得数据，每页条数
+_page('SELECT tg_id FROM tg_user',15); //sql取得数据，每页条数
 
 //从数据库提取数据
 //我们必须是每次从新读取结果集，而不是每次从新去执行sql
-$_result = _query("SELECT tg_sex,tg_username,tg_face FROM tg_user ORDER BY tg_reg_time DESC LIMIT $_pagenum,$_pagesize");
+$_result = _query("SELECT tg_id,tg_sex,tg_username,tg_face FROM tg_user ORDER BY tg_reg_time DESC LIMIT $_pagenum,$_pagesize");
 
 
 ?>
@@ -33,6 +33,7 @@ $_result = _query("SELECT tg_sex,tg_username,tg_face FROM tg_user ORDER BY tg_re
     ?>
     <script type="text/javascript"  src="js/code.js"></script>
     <script type="text/javascript"  src="js/register.js"></script>
+    <script type="text/javascript"  src="js/blog.js"></script>
 </head>
 <body>
     <?php
@@ -42,6 +43,7 @@ $_result = _query("SELECT tg_sex,tg_username,tg_face FROM tg_user ORDER BY tg_re
             <h2>博友列表</h2>
             <?php while (!!$_rows = _fetch_array_list($_result)){
                 $_html = array();
+                $_html['id'] = $_rows['tg_id'];
                 $_html['username'] = $_rows['tg_username'];
                 $_html['face'] = $_rows['tg_face'];
                 $_html['sex'] = $_rows['tg_sex'];
@@ -51,7 +53,7 @@ $_result = _query("SELECT tg_sex,tg_username,tg_face FROM tg_user ORDER BY tg_re
             <dl>
                 <dd class="user"><?php echo $_html['username']?>(<?php echo $_html['sex']?>)</dd>
                 <dt><img src="<?php echo  $_html['face']?>" alt="炎日"/></dt>
-                <dd class="message">发消息</dd>
+                <dd class="message"><a href="###" name="message" title="<?php echo $_html['id']?>"> 发消息</a></dd>
                 <dd class="friend">加为好友</dd>
                 <dd class="guest">给他留言</dd>
                 <dd class="flower">送花</dd>

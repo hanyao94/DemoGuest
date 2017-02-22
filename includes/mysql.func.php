@@ -50,7 +50,7 @@ function _set_name(){
  */
 function _query($_sql){
     if (!$result = mysql_query($_sql)){
-        exit("SQL excute error");
+        exit("SQL excute error".mysql_error());
     }
     return $result;
 }
