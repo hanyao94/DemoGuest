@@ -63,7 +63,7 @@ $_result = _query("SELECT tg_id,tg_fromuser,tg_content,tg_date FROM tg_message O
             ?>
         </table>
         <?php
-            _paging(1);//输出分页，1数字分页，2文本分页
+            _paging(2);//输出分页，1数字分页，2文本分页
         ?>
     </div>
 
