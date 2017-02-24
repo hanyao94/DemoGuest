@@ -40,7 +40,7 @@ if (@$_GET['action']=='write'){
                                     tg_touser,
                                     tg_fromuser,
                                     tg_content,
-                                    tg_time
+                                    tg_date
                          )VALUE(
                                   '{$_clean['touser']}',
                                   '{$_clean['fromuser']}',

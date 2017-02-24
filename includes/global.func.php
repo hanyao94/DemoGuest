@@ -167,6 +167,18 @@ function _uniqid($_mysql_uniqid,$_cookie_uniqid){
 }
 
 /**
+ * 标题截取函数
+ * @param $_string
+ * @return string
+ */
+function _title($_string){
+    if (mb_strlen($_string,'utf-8')>14){
+        $_string = mb_substr($_string,1,14,'utf-8')."...";
+    }
+    return $_string;
+}
+
+/**
  * 过滤html字符
  * 如果是数组就按照数组的方式过滤；如果是字符串就按照字符串的方式过滤
  * @param $_string 字符串或者数组
@@ -216,9 +228,9 @@ function _paging($_type){
         echo '<ul>';
                for($i=0;$i<$_pageabsolute;$i++){
                 if ($_page == ($i+1)){
-                    echo '<li><a href="blog.php?page='.($i+1).'" class = "selected">'.($i+1).'</a></li>';
+                    echo '<li><a href="'.SCRIPT.'.php?page='.($i+1).'" class = "selected">'.($i+1).'</a></li>';
                 }else{
-                    echo '<li><a href="blog.php?page='.($i+1).'">'.($i+1).'</a></li>';
+                    echo '<li><a href="'.SCRIPT.'.php?page='.($i+1).'">'.($i+1).'</a></li>';
                 }
             }
         echo '</ul>';
