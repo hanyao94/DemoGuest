@@ -81,11 +81,14 @@ if(@$_GET['action']=='register'){
                        )";
     _query($sql);
     if (_affected_row() == 1){
+        $_clean['id'] = _insert_id();
         //关闭数据库
         _close();
         _session_destroy();
+        //生成XML
+        _set_xml('new.xml',$_clean);
         //跳转函数
-        _location('恭喜你注册成功'._affected_row(),'active.php?active='.$_clean['active']);
+        _location('恭喜你注册成功','active.php?active='.$_clean['active']);
     }else{
         _close();
         _session_destroy();

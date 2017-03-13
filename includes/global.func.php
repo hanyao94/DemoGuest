@@ -166,6 +166,31 @@ function _uniqid($_mysql_uniqid,$_cookie_uniqid){
     }
 }
 
+function _set_xml($_xmlfile,$_clean){
+    $_fp = @fopen($_xmlfile,'w');
+    if (!$_fp){
+        exit('系统错误，不存在');
+    }
+    flock($_fp,LOCK_EX);//锁定
+    $_string ="<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n";
+    fwrite($_fp,$_string,strlen($_string));
+    $_string ="<vip>\r\n";
+    fwrite($_fp,$_string,strlen($_string));
+    $_string ="\t<id>{$_clean['id']}</id>\r\n";
+    fwrite($_fp,$_string,strlen($_string));
+    $_string ="\t<username>{$_clean['username']}</username>\r\n";
+    fwrite($_fp,$_string,strlen($_string));
+    $_string ="\t<sex>{$_clean['sex']}</sex>\r\n";
+    fwrite($_fp,$_string,strlen($_string));
+    $_string ="\t<face>{$_clean['face']}</face>\r\n";
+    fwrite($_fp,$_string,strlen($_string));
+    $_string ="</vip>";
+    fwrite($_fp,$_string,strlen($_string));
+
+    flock($_fp,LOCK_UN);//解锁
+    fclose($_fp);
+}
+
 /**
  * 标题截取函数
  * @param $_string

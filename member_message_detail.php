@@ -34,6 +34,8 @@ if (@$_GET['action']=='delete'&&isset($_GET['id'])){
                 _alert_back('短信删除失败');
             }
 
+        }else{
+            _alert_back('非法登录');
         }
     }else{
         _alert_back('此短信不存在');

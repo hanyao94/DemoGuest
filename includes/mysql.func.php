@@ -100,6 +100,14 @@ function _free($_result){
 }
 
 /**
+ * 获取刚插入的id
+ * @return int
+ */
+function _insert_id(){
+    return mysql_insert_id();
+}
+
+/**
  * 判断用户名是否重复
  * @param $_sql
  * @param $_info

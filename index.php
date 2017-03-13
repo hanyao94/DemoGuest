@@ -21,6 +21,7 @@ require dirname(__FILE__).'/includes/common.inc.php'; //转换成硬路径，速
     <?php
         require ROOT_PATH.'includes/title.inc.php'; //包含
     ?>
+    <script type="text/javascript"  src="js/blog.js"></script>
 </head>
 
 <body>
@@ -34,6 +35,14 @@ require dirname(__FILE__).'/includes/common.inc.php'; //转换成硬路径，速
 
     <div id="user">
         <h2>新进会员</h2>
+        <dl>
+            <dd class="user">炎日（男）</dd>
+            <dt><img src="face/m01.gif" alt="炎日"/></dt>
+            <dd class="message"><a href="###" name="message" title="1"> 发消息</a></dd>
+            <dd class="friend">加为好友</dd>
+            <dd class="guest">给他留言</dd>
+            <dd class="flower">送花</dd>
+        </dl>
     </div>
 
     <div id="pics">
